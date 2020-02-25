@@ -51,7 +51,7 @@
                 <div class="card-body">
                     <form class="form-inline" style="justify-content: center;" autocomplete="off" method="get">
                         <div class="form-group">
-                            <input class="form-control m-1" type="text" name="verses" id="verses" placeholder="Search bible verse" required>
+                            <input class="form-control m-1" type="text" name="verses" id="verses" placeholder="eg. 1 pet 2:2-3, 1:8" required>
                             <input class="form-control btn btn-outline-dark m-1" type="submit" value="Search">
                         </div>
                     </form>
