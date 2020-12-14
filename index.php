@@ -50,9 +50,13 @@
                     <h5 class="text-center m-0">Holy Bible Recovery Version</h5> </div>
                 <div class="card-body">
                     <form class="form-inline" style="justify-content: center;" autocomplete="off" method="get">
-                        <div class="form-group">
-                            <input class="form-control m-1" type="text" name="verses" id="verses" placeholder="eg. 1 pet 2:2-3, 1:8" required>
-                            <input class="form-control btn btn-outline-dark m-1" type="submit" value="Search">
+                        <div class="form-group row w-100">
+                            <div class="col-sm-10 p-1 mb-1">
+                                <input class="form-control w-100" type="text" name="verses" id="verses" placeholder="eg. 1 pet 2:2-3, 1:8" required>
+                            </div>
+                            <div class="col-sm-2 p-1 mb-1">
+                                <input class="form-control btn btn-outline-dark w-100" type="submit" value="Search">
+                            </div>
                         </div>
                     </form>
                     <div class="card-body p-1">
