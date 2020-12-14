@@ -87,6 +87,9 @@
                     ?>
                     </div>
                 </div>
+                <div class="card-footer text-center" style="line-height: 1">
+                    <small>Telegram version available at <a href="https://t.me/rcvbiblebot">https://t.me/rcvbiblebot</a></small>
+                </div>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
