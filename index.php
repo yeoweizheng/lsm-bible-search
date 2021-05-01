@@ -27,21 +27,15 @@
     <body>
         <a name="top"></a>
         <?php
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
             $response = "";
             if(isset($_GET["verses"])){
-                $urlInput = "https://api.lsm.org/recver.php?String=" . urlencode(filter_var(trim($_GET["verses"]), FILTER_SANITIZE_STRING));
+                $urlInput = "https://api.lsm.org/recver.php?String=" . urlencode(filter_var(trim($_GET["verses"]), FILTER_SANITIZE_STRING)) . "&Out=json";
                 //Perform HTTP GET request
                 $cSession = curl_init();
                 curl_setopt($cSession, CURLOPT_URL, $urlInput);
                 curl_setopt($cSession, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($cSession);
                 curl_close($cSession);
-                //Parse response XML
-                $xmlDoc = new DOMDocument();
-                $xmlDoc->loadXML($response);
             }
         ?>
         <div class="container p-0">
@@ -61,26 +55,25 @@
                     </form>
                     <div class="card-body p-1">
                     <?php
-                        if($response != ""){
-                            $verseRefNodes = $xmlDoc->getElementsByTagName("detected");
-                            $verseNodes = $xmlDoc->getElementsByTagName("text");
-                            $refNodes = $xmlDoc->getElementsByTagName("ref");
-                            $messageNodes = $xmlDoc->getElementsByTagName("message");
-                            $copyrightNodes = $xmlDoc->getElementsByTagName("copyright");
-                            print("<h6 class='font-weight-bold'>" . trim($verseRefNodes[0]->nodeValue) . "</h6>");
+                        if ($response != "") {
+                            $data = json_decode($response);
+                            $verseRef = $data->detected;
+                            $verses = $data->verses;
+                            $message = $data->message;
+                            $copyright = $data->copyright;
+                            print("<h6 class='font-weight-bold'>" . trim($verseRef) . "</h6>");
                             print("<label class='checkbox-inline font-italic'><input type='checkbox' id='showRef'> Show references</label>");
-                            $count = 0;
-                            foreach($verseNodes as $verseNode){
-                                print("<p class='font-weight-bold verseRef' style='margin-bottom: 0px; display: none;'>" . $refNodes[$count]->nodeValue . "</p>");
-                                $verse = trim($verseNode->nodeValue);
-                                $verse = str_replace("[", "<span class='font-italic'>", $verse);
-                                $verse = str_replace("]", "</span>", $verse);
-                                print("<p>" . $verse . "</p>");
-                                $count = $count + 1;
+                            foreach($verses as $verse) {
+                                $ref = $verse->ref;
+                                print("<p class='font-weight-bold verseRef' style='margin-bottom: 0px; display: none;'>" . $verse->ref . "</p>");
+                                $verseText = trim($verse->text);
+                                $verseText = str_replace("[", "<span class='font-italic'>", $verseText);
+                                $verseText = str_replace("]", "</span>", $verseText);
+                                print("<p>" . $verseText . "</p>");
                             }
                             print("<p class='font-italic'>");
-                            if(strlen($messageNodes[0]->nodeValue) >= 2) print(trim($messageNodes[0]->nodeValue) . "<br>");
-                            print(trim($copyrightNodes[0]->nodeValue));
+                            if(strlen($message) >= 2) print(trim($message) . "<br>");
+                            print(trim($copyright));
                             print("</p>");
                             print("<a class='badge badge-light' href='#top'>Back to top</a>");
                         }
