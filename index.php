@@ -11,18 +11,6 @@
                 font-family: Georgia, "Times New Roman", Times, serif;
             }
         </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script>
-            $(function(){
-                $("#showRef").change(function(){
-                    if(this.checked){
-                        $(".verseRef").show();
-                    } else {
-                        $(".verseRef").hide();
-                    }
-                });
-            });
-        </script>
     </head>
     <body>
         <a name="top"></a>
@@ -93,6 +81,13 @@
                 integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script>
             $(function(){
+                $("#showRef").change(function(){
+                    if(this.checked){
+                        $(".verseRef").show();
+                    } else {
+                        $(".verseRef").hide();
+                    }
+                });
                 $("#verses").focus();
             });
         </script>
